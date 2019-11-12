@@ -32,7 +32,8 @@ class App extends React.Component{
 
    onValueChange() {
       this.setState({
-        searchTerm: document.querySelector('input').value
+        searchTerm: document.querySelector('input').value,
+        definition: null
       });
    }
 
