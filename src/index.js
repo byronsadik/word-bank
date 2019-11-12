@@ -45,7 +45,7 @@ class App extends React.Component{
   render(){
     return(
       <div>
-        <h1>Word Bank!</h1>
+        <h1>Word Bank</h1>
         <Input onValueChange={() => this.onValueChange()} />
         <Button onClick={() => {this.handleClick()}}/>
         <WordBank word={this.state.searchTerm} definition={this.state.definition} /> 
