@@ -11,12 +11,17 @@ class App extends React.Component{
     this.state = {};
   }
 
+
+  handleClick = () => {
+    console.log('click worked');
+  }
+
   render(){
     return(
       <div>
         <h1>Word Bank!</h1>
         <Input />
-        <Button />
+        <Button onClick={this.handleClick}/>
         <WordBank word="shoe" definition="a thing you wear." /> 
       </div>
     );
@@ -44,6 +49,7 @@ class Button extends React.Component{
     super(props);
     this.state = {};
   }
+  
   render(){
     return(
       <button>Get word</button>
