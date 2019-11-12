@@ -4,21 +4,23 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const APIurl = "https://kettle-assess.glitch.me/definition";
-
-
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      url: APIurl,
+      url: "https://kettle-assess.glitch.me/definition",
       searchTerm: null,
-      searchURL: null,
       definition: null
     };
   }
 
   handleClick(){
+    
+    /* 
+      I know this is a crappy way to call the API, but I'm not gonna spend all day
+      figuring out how to get past the CORS problem.
+    */
+
     fetch(this.state.url + "?word=" + this.state.searchTerm)
       .then((res) => { return res.json(); })
       .then((data) => {
@@ -31,12 +33,14 @@ class App extends React.Component{
 
 
    onValueChange() {
+
+      // I know this isn't the React way, I'm sure it's something mind-numbingly simple. But I'm pressed for time and I gotta head to jiu jitsu. 
+
       this.setState({
-        searchTerm: document.querySelector('input').value,
+        searchTerm: document.querySelector('input').value, 
         definition: null
       });
    }
-
 
   render(){
     return(
@@ -60,7 +64,9 @@ class Input extends React.Component{
 
   render(){
     return(
-      <input type="text" class="form-control" placeholder="Search for word" 
+      <input  type="text"
+              class="form-control"
+              placeholder="Search for word" 
               onChange={this.props.onValueChange}  
       />
     );
@@ -91,6 +97,7 @@ class WordBank extends React.Component{
       definition: this.props.definition
     };
   }
+
   render(){
     return(
       <div>
@@ -104,18 +111,4 @@ class WordBank extends React.Component{
 }
 
 
-
-
 ReactDOM.render(<App />, document.getElementById('root'));
-
-
-
-// const exampleData = { word: 'pork' };
-
-
-// var head = {
-//   method: 'POST', 
-//   // mode: 'no-cors',
-//   body: exampleData,
-//   headers: new Headers()
-// };
