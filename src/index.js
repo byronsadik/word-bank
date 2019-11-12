@@ -4,25 +4,52 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+const APIurl = "https://kettle-assess.glitch.me/definition";
+
 
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      url: APIurl,
+      searchTerm: null,
+      searchURL: null,
+      definition: null
+    };
+  }
+
+  handleClick(){
+    // this.setState({
+    //   searchTerm: "boo"
+    // });
+
+    fetch(this.state.url + "?word=" + this.state.searchTerm)
+      .then((res) => { return res.json(); })
+      .then((data) => {
+        this.setState({
+          definition: data.definition
+        });
+
+        console.log(data.definition);
+
+      });
   }
 
 
-  handleClick = () => {
-    console.log('click worked');
-  }
+
+   onValueChange() {
+      this.setState({searchTerm: document.querySelector('input').value});
+      console.log(this.state.searchTerm);
+   }
+
 
   render(){
     return(
       <div>
         <h1>Word Bank!</h1>
-        <Input />
+        <Input onValueChange={() => this.onValueChange()} />
         <Button onClick={() => {this.handleClick()}}/>
-        <WordBank word="shoe" definition="a thing you wear." /> 
+        <WordBank word={this.state.searchTerm} definition={this.state.definition} /> 
       </div>
     );
   }
@@ -38,7 +65,9 @@ class Input extends React.Component{
 
   render(){
     return(
-      <input type="text" class="form-control" placeholder="Search for word" />
+      <input type="text" class="form-control" placeholder="Search for word" 
+              onChange={this.props.onValueChange}  
+      />
     );
   }
 }
@@ -71,8 +100,8 @@ class WordBank extends React.Component{
     return(
       <div>
         <div class="container">
-          <div class="row">word: {this.state.word}</div>
-          <div class="row">definition: {this.state.definition}</div>
+          <div class="row">word: {this.props.word}</div>
+          <div class="row">definition: {this.props.definition}</div>
         </div>
       </div>
     );
@@ -83,3 +112,15 @@ class WordBank extends React.Component{
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
+
+
+// const exampleData = { word: 'pork' };
+
+
+// var head = {
+//   method: 'POST', 
+//   // mode: 'no-cors',
+//   body: exampleData,
+//   headers: new Headers()
+// };
