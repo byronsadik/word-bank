@@ -21,7 +21,7 @@ class App extends React.Component{
       <div>
         <h1>Word Bank!</h1>
         <Input />
-        <Button onClick={this.handleClick}/>
+        <Button onClick={() => {this.handleClick()}}/>
         <WordBank word="shoe" definition="a thing you wear." /> 
       </div>
     );
@@ -49,10 +49,10 @@ class Button extends React.Component{
     super(props);
     this.state = {};
   }
-  
+
   render(){
     return(
-      <button>Get word</button>
+      <button onClick={this.props.onClick}>Get word</button>
     );
   }
 }
