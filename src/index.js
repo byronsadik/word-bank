@@ -19,27 +19,21 @@ class App extends React.Component{
   }
 
   handleClick(){
-    // this.setState({
-    //   searchTerm: "boo"
-    // });
-
     fetch(this.state.url + "?word=" + this.state.searchTerm)
       .then((res) => { return res.json(); })
       .then((data) => {
         this.setState({
           definition: data.definition
         });
-
-        console.log(data.definition);
-
       });
   }
 
 
 
    onValueChange() {
-      this.setState({searchTerm: document.querySelector('input').value});
-      console.log(this.state.searchTerm);
+      this.setState({
+        searchTerm: document.querySelector('input').value
+      });
    }
 
 
